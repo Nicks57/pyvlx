@@ -131,11 +131,11 @@ class FrameStatusRequestNotification(FrameBase):
             payload += bytes(self.target_position.raw)
             payload += bytes(self.current_position.raw)
             payload += bytes([self.remaining_time >> 8 & 255, self.remaining_time & 255])
-            payload += bytes(
-                [self.last_master_execution_address >> 16 & 255,
+            payload += bytes([
+                self.last_master_execution_address >> 16 & 255,
                 self.last_master_execution_address >> 8 & 255,
-                self.last_master_execution_address & 255]
-            )
+                self.last_master_execution_address & 255
+                ])
 
             payload += bytes([self.last_command_originator])
         else:
@@ -165,7 +165,7 @@ class FrameStatusRequestNotification(FrameBase):
         else:
             self.status_count = payload[7]
             for i in range(8, 8 + self.status_count*3, 3):
-                self.parameter_data.update({NodeParameter(payload[i]):Parameter(payload[i+1:i+3])})
+                self.parameter_data.update({NodeParameter(payload[i]): Parameter(payload[i+1:i+3])})
 
     def __str__(self):
         """Return human readable string."""
@@ -188,26 +188,26 @@ class FrameStatusRequestNotification(FrameBase):
                     self.last_command_originator,
                 )
             )
-        else:
-            parameter_data_str = ""
-            for key, value in self.parameter_data.items():
-                parameter_data_str += "%s: %s, " % (
-                    str(key),
-                    str(value),
-                )
 
-            return (
-                '<{} session_id="{}" status_id="{}" '
-                'node_id="{}" run_status="{}" status_reply="{}" status_type="{}" status_count="{}" '
-                'parameter_data="{}"/>'.format(
-                    type(self).__name__,
-                    self.session_id,
-                    self.status_id,
-                    self.node_id,
-                    self.run_status,
-                    self.status_reply,
-                    self.status_type,
-                    self.status_count,
-                    parameter_data_str
-                )
+        parameter_data_str = ""
+        for key, value in self.parameter_data.items():
+            parameter_data_str += "%s: %s, " % (
+                str(key),
+                str(value),
             )
+
+        return (
+            '<{} session_id="{}" status_id="{}" '
+            'node_id="{}" run_status="{}" status_reply="{}" status_type="{}" status_count="{}" '
+            'parameter_data="{}"/>'.format(
+                type(self).__name__,
+                self.session_id,
+                self.status_id,
+                self.node_id,
+                self.run_status,
+                self.status_reply,
+                self.status_type,
+                self.status_count,
+                parameter_data_str
+            )
+        )
