@@ -32,9 +32,8 @@ from .frames import (
     FramePasswordEnterConfirmation, FramePasswordEnterRequest,
     FrameSessionFinishedNotification, FrameSetNodeNameConfirmation,
     FrameSetNodeNameRequest, FrameSetUTCConfirmation, FrameSetUTCRequest,
-    extract_from_frame,
     FrameStatusRequestConfirmation, FrameStatusRequestNotification,
-    FrameStatusRequestRequest)
+    FrameStatusRequestRequest, extract_from_frame)
 
 
 def frame_from_raw(raw):

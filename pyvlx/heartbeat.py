@@ -1,8 +1,8 @@
 """Module for sending get state requests to API in regular periods."""
 import asyncio
 
-from .api.status_request import StatusRequest
 from .api import GetState
+from .api.status_request import StatusRequest
 from .exception import PyVLXException
 from .opening_device import Blind
 

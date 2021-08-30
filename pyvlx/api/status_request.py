@@ -38,6 +38,6 @@ class StatusRequest(ApiEvent):
         """Construct initiating frame."""
         self.session_id = get_new_session_id()
         return FrameStatusRequestRequest(
-            session_id=self.session_id, 
+            session_id=self.session_id,
             node_ids=[self.node_id]
         )
