@@ -135,7 +135,7 @@ class FrameStatusRequestNotification(FrameBase):
                 self.last_master_execution_address >> 16 & 255,
                 self.last_master_execution_address >> 8 & 255,
                 self.last_master_execution_address & 255
-                ])
+            ])
 
             payload += bytes([self.last_command_originator])
         else:
