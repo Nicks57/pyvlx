@@ -131,9 +131,11 @@ class FrameStatusRequestNotification(FrameBase):
             payload += bytes(self.target_position.raw)
             payload += bytes(self.current_position.raw)
             payload += bytes([self.remaining_time >> 8 & 255, self.remaining_time & 255])
-            payload += bytes([self.last_master_execution_address >> 16 & 255,
-            self.last_master_execution_address >> 8 & 255,
-            self.last_master_execution_address & 255])
+            payload += bytes(
+                [self.last_master_execution_address >> 16 & 255,
+                self.last_master_execution_address >> 8 & 255,
+                self.last_master_execution_address & 255]
+            )
 
             payload += bytes([self.last_command_originator])
         else:
@@ -160,7 +162,7 @@ class FrameStatusRequestNotification(FrameBase):
             self.remaining_time = payload[11] * 256 + payload[12]
             self.last_master_execution_address = payload[13:16]
             self.last_command_originator = payload[17]
-        else: 
+        else:
             self.status_count = payload[7]
             for i in range(8, 8 + self.status_count*3, 3):
                 self.parameter_data.update({NodeParameter(payload[i]):Parameter(payload[i+1:i+3])})

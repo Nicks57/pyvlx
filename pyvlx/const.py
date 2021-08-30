@@ -655,6 +655,7 @@ class RunStatus(Enum):
     EXECUTION_FAILED = 1     # Execution has failed. (Get specifics in the following error code)
     EXECUTION_ACTIVE = 2     # Execution is still active.
 
+
 class StatusType(Enum):
     """Enum class for Status Type for GW_STATUS_REQUEST_NTF frame."""
 
@@ -662,4 +663,3 @@ class StatusType(Enum):
     REQUEST_CURRENT_POSITION = 1  # Request Current Position
     REQUEST_REMAINING_TIME = 2  # Request Remaining Time
     REQUEST_MAIN_INFO = 3  # Request Main Info
-    

@@ -78,4 +78,3 @@ class NodeUpdater:
                     )
 
                 await node.after_update()
-                
