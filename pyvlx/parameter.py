@@ -150,7 +150,8 @@ class Position(Parameter):
     @property
     def closed(self):
         """Return true if position is set to fully closed."""
-        return self.raw == bytes([self.MAX >> 8 & 255, self.MAX & 255])
+        # Consider closed even if raw is not exactly 51200 (tolerance for devices like Velux SML)
+        return self.position_percent == 100
 
     @property
     def position(self):
@@ -193,7 +194,8 @@ class Position(Parameter):
     def to_percent(raw):
         """Create percent position value out of raw."""
         # The first byte has the vlue from 0 to 200. Ignoring the second one.
-        # Adding 0.5 allows a slight tolerance for devices (e.g. Velux SML) that do not return exactly 51200 as final position when closed.
+        # Adding 0.5 allows a slight tolerance for devices (e.g. Velux SML) that 
+        # do not return exactly 51200 as final position when closed.
         return int(raw[0] / 2 + 0.5)
 
     def __str__(self):
